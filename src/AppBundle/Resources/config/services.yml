@@ -1,0 +1,6 @@
+services:
+    app_crawl_job_service:
+          class: AppBundle\Services\CrawlJobsService
+          arguments:
+              - "@doctrine.orm.entity_manager"
+              - "@cocur_slugify"

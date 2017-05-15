@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col-md-6">
+                            <h3>{{ job.company ~ " - " ~ job.title }}</h3>
+                            <h4>
+                                <i class="fa fa-map-marker"></i> {{ job.location }}
+                            </h4>
+                            <p><b>Keywords:</b>
+                                {% for key, keyword in job.keyword %}
+                                    {{ keyword }}{% if key <= job.keyword|length - 2 %},{% else %} {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                        <div class="col-md-6 col-md-offset-11">
+                            <a href="{{ path('app_job_index') }}" type="button" class="btn btn-success"> Back </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col-md-12">
+                            <div class="display-job">
+                                {% if candidates|length <= 0 %}
+                                    <div class="alert alert-danger">
+                                        There are no candidates yet
+                                    </div>
+                                {% else %}
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">Id</th>
+                                                <th>Name</th>
+                                                <th>Work</th>
+                                                <th>Address</th>
+                                                <th>Experience</th>
+                                                <th>Education</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for candidate in candidates %}
+                                                <tr>
+                                                    <td class="text-center">{{ candidate[0].id }}</td>
+                                                    <td>{{ candidate[0].name }}</td>
+                                                    <td>{{ candidate[0].work }}</td>
+                                                    <td>{{ candidate[0].address }}</td>
+                                                    <td>{{ candidate[0].experience }}</td>
+                                                    <td>{{ candidate[0].education }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,43 @@
+{% if jobs|length <= 0 %}
+    <div class="alert alert-danger">
+        There are no jobs yet
+    </div>
+{% else %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th>Title</th>
+                <th>Company</th>
+                <th>Skills</th>
+                <th>Location</th>
+                <th class="text-right">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                <tr>
+                    <td class="text-center">{{ job.id }}</td>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.company }}</td>
+                    <td>
+                        {% for key, keyword in job.keyword %}
+                            {{ keyword }}{% if key <= job.keyword|length - 2 %},{% else %} {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ job.location }}</td>
+                    <td class="td-actions text-right">
+                        <a href="{{ path('app_job_show', {'slug': job.slug}) }}" type="button" rel="tooltip" class="btn btn-primary btn-simple" data-original-title="" title="">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="{{ path('app_job_matching', {'slug': job.slug}) }}" type="button" rel="tooltip" class="btn btn-success btn-simple" data-original-title="" title="">
+                            <i class="fa fa-user-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

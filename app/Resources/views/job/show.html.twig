@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col-md-6">
+                            <h3>{{ job.company ~ " - " ~ job.title }}</h3>
+                            <h4>
+                                <i class="fa fa-map-marker"></i> {{ job.location }}
+                            </h4>
+                        </div>
+                        <div class="col-md-6 col-md-offset-11">
+                            <a href="{{ path('app_job_index') }}" type="button" class="btn btn-success"> Back </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        {% autoescape %}
+                            {{ job.description|raw }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

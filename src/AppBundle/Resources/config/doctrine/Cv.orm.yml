@@ -1,0 +1,25 @@
+AppBundle\Entity\Cv:
+    type: entity
+    table: cv
+    repositoryClass: AppBundle\Repository\CvRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: '255'
+        address:
+            type: string
+            length: '255'
+        education:
+            type: string
+            length: '255'
+        work:
+            type: string
+            length: '255'
+        experience:
+            type: text

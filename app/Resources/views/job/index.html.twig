@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="col-sm-2 label-on-left" for="search"></label>
+                                <div class="col-sm-10">
+                                    <div class="form-group label-floating is-empty">
+                                        <input type="text" class="form-control" id="search" value="" placeholder="Search by location, job title, description or skills">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-warning search" style="margin-top: 25px">
+                                    <i class="fa fa-search"></i>Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="col-md-6 col-md-offset-11">
+                            <a href="{{ path('app_job_crawl') }}" class="btn btn-primary">Crawl Jobs</a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="alert alert-success" id="results" style="display: none">
+                                New results
+                            </div>
+                            <div class="display-job">
+                                {% include "job/job_list.html.twig" with {'jobs': jobs} %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.search').on('click', function (e) {
+                e.preventDefault();
+                var searchTerm = $('#search').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: Routing.generate('app_job_index'),
+                    data: {
+                        'search': searchTerm
+                    }
+                })
+                .done(function (data) {
+                    if (typeof(data.status) != "undefined" && data.status == "ok") {
+                        $('#results').show();
+                        $('.display-job').html(data.content);
+                        $('#search').val(data.searchTerm);
+                    }
+                })
+            })
+        });
+    </script>
+{% endblock %}

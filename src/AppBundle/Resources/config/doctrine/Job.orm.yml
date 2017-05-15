@@ -1,0 +1,29 @@
+AppBundle\Entity\Job:
+    type: entity
+    table: job
+    repositoryClass: AppBundle\Repository\JobRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: '255'
+        company:
+            type: string
+            length: '255'
+        location:
+            type: string
+            length: '50'
+        description:
+            type: text
+            nullable: true
+        keyword:
+            type: array
+            nullable: true
+        slug:
+            type: string
+            length: '255'

@@ -1,0 +1,17 @@
+app_job_index:
+    path: /
+    defaults: { _controller: "AppBundle:Job:index" }
+    options:
+        expose: true
+
+app_job_crawl:
+    path: /crawl
+    defaults: { _controller: "AppBundle:Job:crawl" }
+
+app_job_show:
+    path: /{slug}/view
+    defaults: { _controller: "AppBundle:Job:show" }
+
+app_job_matching:
+    path: /{slug}/matching
+    defaults: { _controller: "AppBundle:Job:matching" }
